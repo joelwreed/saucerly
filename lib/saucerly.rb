@@ -35,8 +35,9 @@ module Saucerly
     def to_pdf
       normalize!
       io = StringIO.new
+      str = self
       ITextRenderer.new.instance_eval do
-        set_document_from_string(self)
+        set_document_from_string(str)
         layout
         create_pdf(io.to_outputstream)
       end

@@ -4,6 +4,8 @@ require "action_controller"
 Mime::Type.register 'application/pdf', :pdf
 
 module Saucerly
+  java_import org.xhtmlrenderer.pdf.ITextRenderer
+
   module Render
     def render_pdf(pdf_name, options = {})
       send_data_options = {:filename => pdf_name + ".pdf", :type => 'application/pdf'}

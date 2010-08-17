@@ -23,8 +23,6 @@ Gem::Specification.new do |s|
      "VERSION",
      "init.rb",
      "lib/saucerly.rb",
-     "lib/saucerly/pdf_helper.rb",
-     "rails/init.rb",
      "saucerly.gemspec"
   ]
   s.homepage = %q{http://github.com/timriley/saucerly}

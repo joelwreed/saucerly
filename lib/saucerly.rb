@@ -14,6 +14,13 @@ ActionController.add_renderer :pdf do |pdf_name, options|
 end
 
 class Saucerly::Pdf < String
+  @@all_pdfs = []
+
+  def initialize(*)
+    super
+    @@all_pdfs << self
+  end
+
   def normalize!
     gsub!(".com:/", ".com/") # strip out bad attachment_fu URLs
     gsub!(/src=["']+([^:]+?)["']/i,  %{src="#{Rails.root}/public/\\1"}) # reroute absolute paths

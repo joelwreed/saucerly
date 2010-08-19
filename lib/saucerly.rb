@@ -20,24 +20,24 @@ module Saucerly
     render_pdf(pdf_name, options)
   end if ::ActionController.respond_to?(:add_renderer)
 
-  class Pdf < String
+  class Pdf
     @@all_pdfs = []
 
-    def initialize(*)
-      super
+    def initialize(str)
+      @contents = str
       @@all_pdfs << self
     end
 
     def normalize!
-      gsub!(".com:/", ".com/") # strip out bad attachment_fu URLs
-      gsub!(/src=["']+([^:]+?)["']/i,  %{src="#{Rails.root}/public/\\1"}) # reroute absolute paths
-      gsub!(/(src=["']\S+)(\?\d*)?(["'])/i, '\1\3') # remove asset ids
+      @contents.gsub!(".com:/", ".com/") # strip out bad attachment_fu URLs
+      @contents.gsub!(/src=["']+([^:]+?)["']/i,  %{src="#{Rails.root}/public/\\1"}) # reroute absolute paths
+      @contents.gsub!(/(src=["']\S+)(\?\d*)?(["'])/i, '\1\3') # remove asset ids
     end
 
     def to_pdf
       normalize!
       io = StringIO.new
-      str = self
+      str = @contents
       ITextRenderer.new.instance_eval do
         set_document_from_string(str)
         layout

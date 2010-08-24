@@ -21,11 +21,8 @@ module Saucerly
   end if ::ActionController.respond_to?(:add_renderer)
 
   class Pdf
-    @@all_pdfs = []
-
     def initialize(str)
       @contents = str
-      @@all_pdfs << self
     end
 
     def normalize!
